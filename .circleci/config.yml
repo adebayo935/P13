@@ -24,6 +24,9 @@ jobs:
           name: "tag image"
           command: "docker tag python-lettings adebayo935/python-lettings:circleci"
       - run:
+          name: "login"
+          command: "docker login localhost:8000"
+      - run:
           name: "push image"
           command: "docker push adebayo935/python-lettings:circleci"
       - docker/push:
