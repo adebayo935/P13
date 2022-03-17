@@ -14,7 +14,7 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 # copy project
-COPY ./Python-OC-Lettings /Python-OC-Lettings
+COPY ./P13 /P13
 
 
 EXPOSE 8000
