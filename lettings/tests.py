@@ -7,7 +7,6 @@ class LettingTestCase(TestCase):
         response = reverse('lettings_index')
         assert response
 
-
     def test_should_showLetting(self):
         response = reverse('letting', args=[1])
         assert response
