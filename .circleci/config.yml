@@ -15,6 +15,9 @@ jobs:
     steps:
       - checkout
       - docker/install-docker
+      - run:
+          name: "start docker"
+          command: "docker start"
       - docker/build:
           path: .
           image: python-lettings
