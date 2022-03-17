@@ -14,9 +14,10 @@ jobs:
       
     steps:
       - checkout
-      - run:
-          name: "build image"
-          command: "docker build -t python-lettings .circleci/project/Dockerfile"
+      - docker/build:
+          image: python-lettings 
+          tag: circleci 
+          dockerfile: .circleci/project/Dockerfile
       - run:
           name: "tag image"
           command: "docker tag python-lettings adebayo935/python-lettings:circleci"
