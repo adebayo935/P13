@@ -10,7 +10,7 @@ orbs:
 jobs:
   pushing:
     docker:
-      - image: adebayo935/python-lettings:circleci
+      - image: cimg/base:stable
       
     steps:
       - checkout
