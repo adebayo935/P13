@@ -14,7 +14,7 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 # copy project
-COPY ./P13 /P13
+COPY . /P13
 
 
 EXPOSE 8000
