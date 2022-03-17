@@ -15,7 +15,8 @@ jobs:
     steps:
       - checkout
       - docker/build:
-          image: python-lettings 
+          path: .
+          image: python-lettings
           tag: circleci 
       - run:
           name: "tag image"
