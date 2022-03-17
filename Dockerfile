@@ -2,7 +2,7 @@
 FROM python:3.9-alpine3.13
 
 # set work directory
-WORKDIR /Python-OC-Lettings
+WORKDIR /P13
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
