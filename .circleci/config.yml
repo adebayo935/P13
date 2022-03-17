@@ -17,7 +17,7 @@ jobs:
       - docker/build:
           path: .
           image: python-lettings
-          tag: circleci 
+          tag: latest
       - run:
           name: "tag image"
           command: "docker tag python-lettings adebayo935/python-lettings:circleci"
