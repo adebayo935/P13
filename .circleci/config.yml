@@ -15,9 +15,7 @@ jobs:
     steps:
       - checkout
       - docker/install-docker
-      - run:
-          name: "start docker"
-          command: "service docker start"
+      - setup_remote_docker
       - docker/build:
           path: .
           image: python-lettings
