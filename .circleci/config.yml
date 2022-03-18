@@ -25,7 +25,7 @@ jobs:
           command: "docker tag python-lettings adebayo935/python-lettings:circleci"
       - run:
           name: "login"
-          command: "docker login -u adebayo935 --password-stdin"
+          command: "docker login -u adebayo935 -p ninjaeriku971!"
       - run:
           name: "push image"
           command: "docker push adebayo935/python-lettings:circleci"
