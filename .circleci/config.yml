@@ -19,6 +19,7 @@ jobs:
       - docker/build:
           path: .
           image: python-lettings
+          tag: latest
       - run:
           name: "tag image"
           command: "docker tag python-lettings adebayo935/python-lettings:circleci"
@@ -28,8 +29,6 @@ jobs:
       - run:
           name: "push image"
           command: "docker push adebayo935/python-lettings:circleci"
-      - docker/push:
-          image: adebayo935/python-lettings:circleci
 workflows:
   pushing-workflow:
     jobs:
