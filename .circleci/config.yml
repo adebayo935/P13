@@ -15,7 +15,7 @@ jobs:
       - heroku/install
       - run:
           name: "login"
-          command: "heroku login -u eric.hounkpatin@gmail.com -p ninjaeriku971!"
+          command: "heroku login eric.hounkpatin@gmail.com"
       - heroku/push-docker-image:
             app-name: python-lettings
       - heroku/release-docker-image:
