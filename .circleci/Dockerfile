@@ -7,6 +7,7 @@ WORKDIR /P13
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV IMAGE adebayo935/python-lettings:circleci
 
 # install dependencies
 RUN pip install --upgrade pip 
