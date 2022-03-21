@@ -17,9 +17,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "container login"
-          command: "heroku container:login"
-      - run:
           name: "push image"
           command: "heroku container:push web"
       - run:
