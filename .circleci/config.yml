@@ -18,10 +18,10 @@ jobs:
           command: "HEROKU_API_KEY=${API_KEY} heroku container:login"
       - run:
           name: "push"
-          command: "HEROKU_API_KEY=${API_KEY} heroku container:push -a python-lettings"
+          command: "HEROKU_API_KEY=${API_KEY} heroku container:push -a python-lettings web"
       - run:
           name: "release"
-          command: "HEROKU_API_KEY=${API_KEY} heroku container:release -a python-lettings"
+          command: "HEROKU_API_KEY=${API_KEY} heroku container:release -a python-lettings web"
 workflows:
   deploying-workflow:
     jobs:
