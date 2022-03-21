@@ -3,33 +3,33 @@
 version: 2.1
 
 orbs:
-  docker: circleci/docker@1.7.0
+  heroku: circleci/heroku@1.2.6
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  pushing:
+  deploying:
     docker:
-      - image: cimg/base:stable
-      
+      - image: ${IMAGE}
+        auth:
+          username: adebayo935
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
-      - docker/install-docker
-      - setup_remote_docker
-      - docker/build:
-          path: .
-          image: python-lettings
-          tag: latest
-      - run:
-          name: "tag image"
-          command: "docker tag python-lettings adebayo935/python-lettings:circleci"
+      - heroku/install
       - run:
           name: "login"
-          command: " cat .circleci/my_password.txt | docker login -u adebayo935 --password-stdin"
+          command: "heroku login"
+      - run:
+          name: "container login"
+          command: "heroku container:login"
       - run:
           name: "push image"
-          command: "docker push adebayo935/python-lettings:circleci"
+          command: "heroku container:push web"
+      - run:
+          name: "release image"
+          command: "heroku container:release web"
 workflows:
-  pushing-workflow:
+  deploying-workflow:
     jobs:
-      - pushing
+      - deploying
