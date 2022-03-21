@@ -12,7 +12,9 @@ jobs:
     machine: true
     steps:
       - checkout
-      - heroku/install
+      - run:
+          name: "login"
+          command: "heroku login --password ${HEROKU_PASSWORD}"
       - heroku/push-docker-image:
             app-name: python-lettings
       - heroku/release-docker-image:
