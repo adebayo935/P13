@@ -38,7 +38,7 @@ jobs:
           command: "flake8"
   pushing:
     docker:
-      - image: ${IMAGE}
+      - image: cimg/base:stable
       
     steps:
       - checkout
