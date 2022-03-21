@@ -13,9 +13,6 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - run:
-          name: "login"
-          command: "heroku login eric.hounkpatin@gmail.com"
       - heroku/push-docker-image:
             app-name: python-lettings
       - heroku/release-docker-image:
