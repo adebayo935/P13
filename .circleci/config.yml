@@ -15,7 +15,7 @@ jobs:
       - heroku/install 
       - run:
           name: "push and release"
-          command: |
+          command:
             HEROKU_API_KEY=${API_KEY} heroku container:login
             HEROKU_API_KEY=${API_KEY} heroku container:push -a python-lettings web
             HEROKU_API_KEY=${API_KEY} heroku container:release -a python-lettings web"
