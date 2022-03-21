@@ -18,10 +18,10 @@ jobs:
           command: "heroku login"
       - run:
           name: "push image"
-          command: "heroku container:push web"
+          command: "python-lettings heroku container:push web"
       - run:
           name: "release image"
-          command: "heroku container:release web"
+          command: "python-lettings heroku container:release web"
 workflows:
   deploying-workflow:
     jobs:
