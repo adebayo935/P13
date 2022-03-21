@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0:8000','.herokuapp.com']
 
+server.port=${PORT:8000}
 
 # Application definition
 
