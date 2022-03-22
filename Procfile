@@ -1,1 +1,1 @@
-web: gunicorn oc_lettings_site.wsgi -p $PORT
+web: gunicorn oc-lettings-p13.wsgi --preload --log-file
