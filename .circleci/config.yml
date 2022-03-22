@@ -69,9 +69,6 @@ jobs:
             HEROKU_API_KEY=${API_KEY} heroku container:login
             HEROKU_API_KEY=${API_KEY} heroku container:push -a python-lettings web
             HEROKU_API_KEY=${API_KEY} heroku container:release -a python-lettings web
-      - run:
-          name "gunicorn"
-          command "gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT"
 workflows:
   allin-workflow:
     jobs:
