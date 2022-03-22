@@ -26,7 +26,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['python-lettings.herokuapp.com', '0.0.0.0', '127.0.0.1', 'localhost']
 
 # Application definition
 
