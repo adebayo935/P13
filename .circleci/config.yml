@@ -73,5 +73,9 @@ workflows:
   allin-workflow:
     jobs:
       - building
-      - pushing
-      - deploying
+      - pushing:
+          requires:
+          - building
+      - deploying:
+          requires:
+          - pushing
