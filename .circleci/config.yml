@@ -66,6 +66,7 @@ jobs:
           command: |
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku create python-lettings --region eu || true
             HEROKU_API_KEY=${API_KEY} heroku container:login
             HEROKU_API_KEY=${API_KEY} heroku container:push -a python-lettings web
             HEROKU_API_KEY=${API_KEY} heroku container:release -a python-lettings web
