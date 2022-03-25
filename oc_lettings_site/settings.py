@@ -4,8 +4,11 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
+load_dotenv()
+
+
 sentry_sdk.init(
-    dsn="https://f105cac3b693461c9e127e742d07bf5b@o1175636.ingest.sentry.io/6272630",
+    dsn=str(os.getenv('DSN_SENTRY')),
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -18,8 +21,6 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
-
-load_dotenv()
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
