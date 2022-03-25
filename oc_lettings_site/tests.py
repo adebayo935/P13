@@ -5,4 +5,4 @@ from django.urls import reverse
 class IndexTestCase(TestCase):
     def test_should_showIndex(self):
         response = reverse('index')
-        assert response.status == 200
+        assert response == "/"
