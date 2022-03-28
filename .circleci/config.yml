@@ -8,28 +8,34 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  pushing:
+  building:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/base:stable
-      
+      - image: ${IMAGE}
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - docker/install-docker
-      - setup_remote_docker
-      - docker/build:
-          path: .
-          image: python-lettings
-          tag: latest
       - run:
-          name: "tag image"
-          command: "docker tag python-lettings adebayo935/python-lettings:circleci"
+          name: "Upgrade Pip"
+          command: "python -m pip install --upgrade pip"
       - run:
-          name: "login"
-          command: "docker login -u adebayo935 -p ${DOCKERHUB_PASSWORD}"
+          name: "Install Depedencies"
+          command: "pip install -r requirements.txt"
       - run:
-          name: "push image"
-          command: "docker push adebayo935/python-lettings:circleci"
+          name: "Test Site"
+          command: "python manage.py test oc_lettings_site.tests"
+      - run:
+          name: "Test Lettings"
+          command: "python manage.py test lettings.tests"
+      - run:
+          name: "Test Profiles"
+          command: "python manage.py test profiles.tests"
+      - run:
+          name: "Test Flake"
+          command: "flake8"
 workflows:
-  pushing-workflow:
+  building-workflow:
     jobs:
-      - pushing
+      - building
