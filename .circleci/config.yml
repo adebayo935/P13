@@ -1,0 +1,82 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.7.0
+  heroku: circleci/heroku@1.2.6
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  building:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: ${IMAGE}
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "Upgrade Pip"
+          command: "python -m pip install --upgrade pip"
+      - run:
+          name: "Install Depedencies"
+          command: "pip install -r requirements.txt"
+      - run:
+          name: "Test Site"
+          command: "python manage.py test oc_lettings_site.tests"
+      - run:
+          name: "Test Lettings"
+          command: "python manage.py test lettings.tests"
+      - run:
+          name: "Test Profiles"
+          command: "python manage.py test profiles.tests"
+      - run:
+          name: "Test Flake"
+          command: "flake8"
+  pushing:
+    docker:
+      - image: cimg/base:stable
+      
+    steps:
+      - checkout
+      - docker/install-docker
+      - setup_remote_docker
+      - docker/build:
+          path: .
+          image: python-lettings
+          tag: latest
+      - run:
+          name: "tag image"
+          command: "docker tag python-lettings adebayo935/python-lettings:circleci"
+      - run:
+          name: "login"
+          command: "docker login -u adebayo935 -p ${DOCKERHUB_PASSWORD}"
+      - run:
+          name: "push image"
+          command: "docker push adebayo935/python-lettings:circleci"
+  deploying:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: "push and release"
+          command: |
+            set -x
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${API_KEY} heroku create python-lettings --region eu || true
+            HEROKU_API_KEY=${API_KEY} heroku container:login
+            HEROKU_API_KEY=${API_KEY} heroku container:push -a python-lettings web
+            HEROKU_API_KEY=${API_KEY} heroku container:release -a python-lettings web
+workflows:
+  allin-workflow:
+    jobs:
+      - building
+      - pushing:
+          requires:
+          - building
+      - deploying:
+          requires:
+          - pushing
